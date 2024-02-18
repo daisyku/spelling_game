@@ -3,7 +3,7 @@
 # Import flask and datetime module for showing date and time
 from flask import Flask, jsonify
 import datetime
-from spellingBeeGame import generate_pangrams, getScore
+from spellingbeegame import generate_pangrams, getScore
 
 x = datetime.datetime.now()
 
