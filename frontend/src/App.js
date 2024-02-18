@@ -18,11 +18,9 @@ function App() {
   const [correctInputs, setCorrectInputs] = useState([]); // State to store the correct inputs
   const [lst, setLst] = useState([]); // State to store the special inputs
   const [userInput, setUserInput] = useState(''); // State to store the user's input
-  //const [guess, setGuess] = useState(''); // State to store the current guess
   const [alreadyGuessed, setAlreadyGuessed] = useState([]); // State to store the already guessed words
   const [points, setPoints] = useState(0); // State to store the points
   const [special_letter, setSpecialLetter] = useState('')
-  //let alreadyGuessed = []
   
   const fetchGameState = () => {
     fetch('/game_state')
@@ -38,9 +36,26 @@ function App() {
 
       });
     setPoints(0)
-    //alreadyGuessed = []
     setAlreadyGuessed([])
   };
+
+  // useEffect(() => {
+  //   const handleKeyDown = (event) => {
+  //     const key = event.key.toLowerCase();
+  //     if (letters.includes(key)) {
+  //       console.log(`User pressed a special key: ${key}`);
+  //       setUserInput(userInput + key)
+  //       // Here you can add the logic to record the key press
+  //     }
+  //   };
+  //   window.addEventListener('keydown', handleKeyDown);
+
+  // // Cleanup function to remove the event listener when the component unmounts
+  //   return () => {
+  //     window.removeEventListener('keydown', handleKeyDown);
+  //   };
+  // }, []); // Empty dependency array means this effect runs once on mount and cleanup on unmount
+
 
   // Fetch the letters from the server when the component mounts
   useEffect(() => {
@@ -97,13 +112,23 @@ function App() {
         <button onClick={() => handleButtonClick(letters[4])}>{letters[4]}</button>
         <button onClick={() => handleButtonClick(letters[5])}>{letters[5]}</button>
         <button onClick={() => handleButtonClick(letters[6])}>{letters[6]}</button>
-        <button onClick={fetchGameState}>New Game</button>
+        {/* 
+        <form>
+          <label>
+            Guess: 
+            <input type="text" name="name" />
+          </label>
+          <input type="submit" value="Submit" />
+        </form> */}
+
         <p>{userInput}</p>
+
         <button onClick={handleDeleteClick}>Delete</button>
         <button onClick={handleGuessSubmission}>Submit Guess</button>
-        {/* <p>Current Guess: {userInput}</p> */}
+
         <p>Points: {points}</p>
         <p>Already Guessed: {alreadyGuessed.join(', ')}</p>
+        <button onClick={fetchGameState}>New Game</button>
 
 			</header>
 		</div>
