@@ -5,6 +5,9 @@ import React, { useState, useEffect } from "react";
 import "./App.css";
 
 function scoring(word) {
+  if (word.length == 4 ) {
+    return 1
+  }
   return word.length
 }
 
@@ -60,29 +63,14 @@ function App() {
     if (correctInputs.includes(userInput) &&  userInput.includes(special_letter) ) {
       if (alreadyGuessed.includes(userInput) ) {
         alert("Already Guessed");
+        alreadyGuessed.push(userInput)
       } else if (lst.includes(userInput)){
         alert("its a pangram!!!");
-        // fetch(`/score?word=${userInput}`)
-        //   .then(response => response.json())
-        //   .then(data => {
-        //     setPoints(points + data.score);
-        //     //setAlreadyGuessed(alreadyGuessed + guess);
-        //     alreadyGuessed.push(userInput)
-        //     //setGuess('');
-        //     //setUserInput('')
-        //   });
         var current = scoring(userInput)
         setPoints(points+current)
       }
       else {
         alert("Great!");
-        // fetch(`/score?word=${userInput}`)
-        //   .then(response => response.json())
-        //   .then(data => {
-        //     setPoints(points + data.score);
-        //     //setAlreadyGuessed(alreadyGuessed + guess);
-        //     alreadyGuessed.push(userInput)
-        //   });
         current = scoring(userInput)
         setPoints(points+current)
       }
