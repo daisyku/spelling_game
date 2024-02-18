@@ -22,6 +22,7 @@ function App() {
   const [alreadyGuessed, setAlreadyGuessed] = useState([]); // State to store the already guessed words
   const [points, setPoints] = useState(0); // State to store the points
   const [special_letter, setSpecialLetter] = useState('')
+  //let alreadyGuessed = []
   
   const fetchGameState = () => {
     fetch('/game_state')
@@ -37,6 +38,8 @@ function App() {
 
       });
     setPoints(0)
+    //alreadyGuessed = []
+    setAlreadyGuessed([])
   };
 
   // Fetch the letters from the server when the component mounts
@@ -47,7 +50,7 @@ function App() {
   const handleButtonClick = (letter) => {
     setUserInput(userInput + letter)
     const newUserInput = userInput + letter;
-    console.log('userintput is:', newUserInput);
+    //console.log('userintput is:', newUserInput);
     setUserInput(newUserInput);
   };
 
@@ -57,28 +60,28 @@ function App() {
   };
 
   const handleGuessSubmission = () => {
-   //setGuess(userInput);
-    console.log('submitting guess: ', userInput)
-    //console.log('guess is: ', guess)
+    console.log('handling guess: ', userInput)
+    console.log('already guessed is: ', alreadyGuessed)
     if (correctInputs.includes(userInput) &&  userInput.includes(special_letter) ) {
       if (alreadyGuessed.includes(userInput) ) {
         alert("Already Guessed");
-        alreadyGuessed.push(userInput)
       } else if (lst.includes(userInput)){
         alert("its a pangram!!!");
         var current = scoring(userInput)
         setPoints(points+current)
+        setAlreadyGuessed([...alreadyGuessed, userInput]);
       }
       else {
         alert("Great!");
         current = scoring(userInput)
         setPoints(points+current)
+        setAlreadyGuessed([...alreadyGuessed, userInput]);
       }
     } else {
       alert("Not a valid word!");
     }
     setUserInput('');
-    //setGuess('');
+    // Update the state variable with the new guess
   };
 
 
@@ -86,14 +89,6 @@ function App() {
 		<div className="App">
 			<header className="App-header">
 				<h1>Spelling Bee!!</h1>
-				{/* Calling a data from setdata for showing */}
-				{/* <p>{data.name}</p>
-				<p>{data.age}</p>
-				<p>{data.date}</p>
-				<p>{data.programming}</p> */}
-        {/* {letters.map((letter) => (
-          <button key={letter}>{letter}</button>
-        ))} */}
         
         <button onClick={() => handleButtonClick(letters[0])}>{letters[0]}</button>
         <button onClick={() => handleButtonClick(letters[1])}>{letters[1]}</button>
@@ -106,7 +101,7 @@ function App() {
         <p>{userInput}</p>
         <button onClick={handleDeleteClick}>Delete</button>
         <button onClick={handleGuessSubmission}>Submit Guess</button>
-        <p>Current Guess: {userInput}</p>
+        {/* <p>Current Guess: {userInput}</p> */}
         <p>Points: {points}</p>
         <p>Already Guessed: {alreadyGuessed.join(', ')}</p>
 
