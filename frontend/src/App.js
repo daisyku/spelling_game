@@ -120,6 +120,14 @@ function App() {
     // Update the state variable with the new guess
   };
 
+  const handleShuffle = () => {
+    let shuffledLetters = [...letters];
+    for (let i = shuffledLetters.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [shuffledLetters[i], shuffledLetters[j]] = [shuffledLetters[j], shuffledLetters[i]];
+    }
+    setLetters(shuffledLetters); // This will trigger a re-render
+  };
 
 	return (
 		<div className="App">
@@ -140,6 +148,8 @@ function App() {
 
         <button onClick={handleDeleteClick}>Delete</button>
         <button onClick={handleGuessSubmission}>Submit Guess</button>
+        <button onClick={handleShuffle}>Shuffle</button>
+
 
         <p>Points: {points}</p>
         <p>Already Guessed: {alreadyGuessed.join(', ')}</p>
