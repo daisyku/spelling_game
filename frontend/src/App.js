@@ -11,6 +11,14 @@ function scoring(word) {
   return word.length
 }
 
+function totalPoints (lst) {
+  var points = 0
+  for ( var i = 0; i < lst.length ; i++ ) {
+    points += scoring(lst[i])
+  }
+  return points
+}
+
 function App() {
 
 
@@ -21,7 +29,9 @@ function App() {
   const [alreadyGuessed, setAlreadyGuessed] = useState([]); // State to store the already guessed words
   const [points, setPoints] = useState(0); // State to store the points
   const [special_letter, setSpecialLetter] = useState('')
-  
+  const [maxPoints, setMaxPoints] = useState(0)
+
+
   const fetchGameState = () => {
     fetch('/game_state')
       .then(response => response.json())
@@ -37,7 +47,10 @@ function App() {
       });
     setPoints(0)
     setAlreadyGuessed([])
+    setMaxPoints(totalPoints(correctInputs))
+    console.log('max points: ', maxPoints)
   };
+
 
   // useEffect(() => {
   //   const handleKeyDown = (event) => {
@@ -128,6 +141,7 @@ function App() {
 
         <p>Points: {points}</p>
         <p>Already Guessed: {alreadyGuessed.join(', ')}</p>
+        <p>Max Points: {maxPoints}</p>
         <button onClick={fetchGameState}>New Game</button>
 
 			</header>
