@@ -2,6 +2,7 @@
 
 // Importing modules
 import React, { useState, useEffect } from "react";
+import Icon from './arrow.png';
 import "./App.css";
 
 function scoring(word) {
@@ -30,6 +31,7 @@ function App() {
   const [points, setPoints] = useState(0); // State to store the points
   const [special_letter, setSpecialLetter] = useState('')
   const [maxPoints, setMaxPoints] = useState(0)
+  const [inputColor, setInputColor] = useState('black');
 
 
   const fetchGameState = () => {
@@ -89,7 +91,18 @@ function App() {
     };
   }, [userInput]); // Re-run the effect when `userInput` changes
 
+  // const handleIncorrectLetter = (event) => {
+  //   const newInput = event.target.value;
+  //   const lastChar = newInput[newInput.length - 1];
 
+  //   if (letters.includes(lastChar)) {
+  //       setInputColor('green');
+  //   } else {
+  //       setInputColor('gray');
+  //   }
+
+  //   setUserInput(newInput);
+  // };
   // Function to handle delete button click
   const handleDeleteClick = () => {
     setUserInput(userInput.slice(0, -1));
@@ -133,6 +146,8 @@ function App() {
 		<div className="App">
 			<header className="App-header">
 				<h1>Spelling Bee!!</h1>
+
+        <p>Points: {points}</p>
         
         <div style={{display: 'flex', justifyContent: 'space-around'}}>
         <button className={letters[0] === special_letter ? "specialButton" : "myButton"} onClick={() => handleButtonClick(letters[0])}>{letters[0]}</button>
@@ -144,14 +159,30 @@ function App() {
         <button className={letters[6] === special_letter ? "specialButton" : "myButton"} onClick={() => handleButtonClick(letters[6])}>{letters[6]}</button>
         </div>
 
-        <p>{userInput}</p>
+        {/* <p>{userInput}</p> */}
+        <input 
+          style={{
+            background: 'transparent', 
+            border: 'none', 
+            borderBottom: '1px solid #000', 
+            outline: 'none',
+            fontSize: '30px', 
+            height: '30px', 
+            caretColor: 'yellow' 
+          }} 
+          type="text" 
+          placeholder="Type or Click"
+          value={userInput} 
+          //onChange={handleIncorrectLetter} 
+        />
+
 
         <button onClick={handleDeleteClick}>Delete</button>
         <button onClick={handleGuessSubmission}>Submit Guess</button>
-        <button onClick={handleShuffle}>Shuffle</button>
+        <button className = {"shuffleButton"} onClick={handleShuffle}>
+          <img src={Icon} alt="Shuffle Icon" style={{ width: '20px', height: '20px' }}/>
+        </button>
 
-
-        <p>Points: {points}</p>
         <p>Already Guessed: {alreadyGuessed.join(', ')}</p>
         <p>Max Points: {maxPoints}</p>
         <button onClick={fetchGameState}>New Game</button>
