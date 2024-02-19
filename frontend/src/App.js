@@ -118,13 +118,14 @@ function App() {
 			<header className="App-header">
 				<h1>Spelling Bee!!</h1>
         
-        <button onClick={() => handleButtonClick(letters[0])}>{letters[0]}</button>
-        <button onClick={() => handleButtonClick(letters[1])}>{letters[1]}</button>
-        <button onClick={() => handleButtonClick(letters[2])}>{letters[2]}</button>
-        <button onClick={() => handleButtonClick(letters[3])}>{letters[3]}</button>
-        <button onClick={() => handleButtonClick(letters[4])}>{letters[4]}</button>
-        <button onClick={() => handleButtonClick(letters[5])}>{letters[5]}</button>
-        <button onClick={() => handleButtonClick(letters[6])}>{letters[6]}</button>
+        <button className={letters[0] === special_letter ? "specialButton" : "myButton"} onClick={() => handleButtonClick(letters[0])}>{letters[0]}</button>
+        <button className={letters[1] === special_letter ? "specialButton" : "myButton"} onClick={() => handleButtonClick(letters[1])}>{letters[1]}</button>
+        <button className={letters[2] === special_letter ? "specialButton" : "myButton"} onClick={() => handleButtonClick(letters[2])}>{letters[2]}</button>
+        <button className={letters[3] === special_letter ? "specialButton" : "myButton"} onClick={() => handleButtonClick(letters[3])}>{letters[3]}</button>
+        <button className={letters[4] === special_letter ? "specialButton" : "myButton"} onClick={() => handleButtonClick(letters[4])}>{letters[4]}</button>
+        <button className={letters[5] === special_letter ? "specialButton" : "myButton"} onClick={() => handleButtonClick(letters[5])}>{letters[5]}</button>
+        <button className={letters[6] === special_letter ? "specialButton" : "myButton"} onClick={() => handleButtonClick(letters[6])}>{letters[6]}</button>
+
         {/* 
         <form>
           <label>

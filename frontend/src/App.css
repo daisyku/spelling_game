@@ -36,4 +36,15 @@
       transform: rotate(360deg);
     }
   }
+    
+  .myButton {
+    background-color: #c1a5f4; /* Green */
+    /* other styles... */
+  }
+  
+  .specialButton {
+    background-color: #FFD700; /* Gold */
+    /* other styles... */
+  }
+
   
