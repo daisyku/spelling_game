@@ -40,11 +40,45 @@
   .myButton {
     background-color: #c1a5f4; /* Green */
     /* other styles... */
+    /* display: flex;
+    justify-content: space-around; */
+    font-size: 40px; /* Increase the size of the text */
+    padding: 15px 15px; /*Increase the size of the button */
   }
   
   .specialButton {
     background-color: #FFD700; /* Gold */
     /* other styles... */
+    /* display: flex;
+    justify-content: space-around; */
+    font-size: 40px; /* Increase the size of the text */
+    padding: 15px 15px; /* Increase the size of the button */
   }
 
-  
+  /* .myButton, .specialButton {
+    position: relative;
+    height: 50px;
+    width: 120px;
+    padding: 10px;
+    cursor: pointer;
+    margin: 20px;
+}
+
+.myButton:before, .myButton:after, .specialButton:before, .specialButton:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    height: 100%;
+    width: 52%;
+    background: inherit;
+}
+
+.myButton:before, .specialButton:before {
+    left: 0;
+    transform: skew(0deg, 30deg);
+}
+
+.myButton:after, .specialButton:after {
+    right: 0;
+    transform: skew(0deg, -30deg);
+} */

@@ -51,25 +51,6 @@ function App() {
     console.log('max points: ', maxPoints)
   };
 
-
-  // useEffect(() => {
-  //   const handleKeyDown = (event) => {
-  //     const key = event.key.toLowerCase();
-  //     if (letters.includes(key)) {
-  //       console.log(`User pressed a special key: ${key}`);
-  //       setUserInput(userInput + key)
-  //       // Here you can add the logic to record the key press
-  //     }
-  //   };
-  //   window.addEventListener('keydown', handleKeyDown);
-
-  // // Cleanup function to remove the event listener when the component unmounts
-  //   return () => {
-  //     window.removeEventListener('keydown', handleKeyDown);
-  //   };
-  // }, []); // Empty dependency array means this effect runs once on mount and cleanup on unmount
-
-
   // Fetch the letters from the server when the component mounts
   useEffect(() => {
     fetchGameState();
@@ -81,6 +62,33 @@ function App() {
     //console.log('userintput is:', newUserInput);
     setUserInput(newUserInput);
   };
+
+  useEffect(() => {
+    const handleKeyDown = (event) => {
+      // Check if the key is a letter
+      if (event.key.length === 1 && event.key.match(/[a-z]/i)) {
+        // Update the userInput state
+        setUserInput(userInput + event.key);
+      }
+
+      else if (event.key === 'Enter') {
+        handleGuessSubmission()
+      }
+      
+      else if (event.key === 'Backspace') {
+        handleDeleteClick()
+      }
+    };
+
+    // Add the event listener
+    window.addEventListener('keydown', handleKeyDown);
+
+    // Remove the event listener when the component unmounts
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [userInput]); // Re-run the effect when `userInput` changes
+
 
   // Function to handle delete button click
   const handleDeleteClick = () => {
@@ -118,6 +126,7 @@ function App() {
 			<header className="App-header">
 				<h1>Spelling Bee!!</h1>
         
+        <div style={{display: 'flex', justifyContent: 'space-around'}}>
         <button className={letters[0] === special_letter ? "specialButton" : "myButton"} onClick={() => handleButtonClick(letters[0])}>{letters[0]}</button>
         <button className={letters[1] === special_letter ? "specialButton" : "myButton"} onClick={() => handleButtonClick(letters[1])}>{letters[1]}</button>
         <button className={letters[2] === special_letter ? "specialButton" : "myButton"} onClick={() => handleButtonClick(letters[2])}>{letters[2]}</button>
@@ -125,15 +134,7 @@ function App() {
         <button className={letters[4] === special_letter ? "specialButton" : "myButton"} onClick={() => handleButtonClick(letters[4])}>{letters[4]}</button>
         <button className={letters[5] === special_letter ? "specialButton" : "myButton"} onClick={() => handleButtonClick(letters[5])}>{letters[5]}</button>
         <button className={letters[6] === special_letter ? "specialButton" : "myButton"} onClick={() => handleButtonClick(letters[6])}>{letters[6]}</button>
-
-        {/* 
-        <form>
-          <label>
-            Guess: 
-            <input type="text" name="name" />
-          </label>
-          <input type="submit" value="Submit" />
-        </form> */}
+        </div>
 
         <p>{userInput}</p>
 
