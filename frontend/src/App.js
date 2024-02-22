@@ -32,6 +32,8 @@ function App() {
   const [special_letter, setSpecialLetter] = useState('')
   const [maxPoints, setMaxPoints] = useState(0)
   const [inputColor, setInputColor] = useState('black');
+  const [pangramWords, setPangramWords] = useState([]);
+
 
 
   const fetchGameState = () => {
@@ -111,20 +113,26 @@ function App() {
   const handleGuessSubmission = () => {
     console.log('handling guess: ', userInput)
     console.log('already guessed is: ', alreadyGuessed)
-    if (correctInputs.includes(userInput) &&  userInput.includes(special_letter) ) {
-      if (alreadyGuessed.includes(userInput) ) {
+    setUserInput(userInput.toLowerCase())
+    //console.log(userInput)
+    var uInputLowered = userInput.toLowerCase()
+    if (correctInputs.includes(uInputLowered) &&  uInputLowered.includes(special_letter) ) {
+      if (alreadyGuessed.includes(uInputLowered) ) {
         alert("Already Guessed");
-      } else if (lst.includes(userInput)){
+      } else if (lst.includes(uInputLowered)){
         alert("its a pangram!!!");
-        var current = scoring(userInput)
+        var current = scoring(uInputLowered)
         setPoints(points+current)
-        setAlreadyGuessed([...alreadyGuessed, userInput]);
+        setAlreadyGuessed([...alreadyGuessed, uInputLowered]);
+        setPangramWords([...pangramWords, uInputLowered]); // Add this line
+
       }
       else {
         alert("Great!");
-        current = scoring(userInput)
+        current = scoring(uInputLowered)
         setPoints(points+current)
-        setAlreadyGuessed([...alreadyGuessed, userInput]);
+        setAlreadyGuessed([...alreadyGuessed, uInputLowered]);
+        
       }
     } else {
       alert("Not a valid word!");
@@ -183,7 +191,12 @@ function App() {
           <img src={Icon} alt="Shuffle Icon" style={{ width: '20px', height: '20px' }}/>
         </button>
 
-        <p>Already Guessed: {alreadyGuessed.join(', ')}</p>
+        {/* <p>Already Guessed: {alreadyGuessed.join(', ')}</p> */}
+        {/* <p>Already Guessed: {alreadyGuessed.map(word => pangramWords.includes(word) ? <b>{word}</b> : word).join(', ')}</p> */}
+        <p>Already Guessed: {alreadyGuessed.map(word => 
+          pangramWords.includes(word) ? <><b>{word}</b>, </> : <>{word}, </>
+)       }</p>
+
         <p>Max Points: {maxPoints}</p>
         <button onClick={fetchGameState}>New Game</button>
 
